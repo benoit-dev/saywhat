@@ -32,6 +32,17 @@ export const remove = mutation({
   },
 });
 
+export const update = mutation({
+  args: {
+    id: v.id("groupItems"),
+    name: v.string(),
+    note: v.string(),
+  },
+  handler: async (ctx, { id, name, note }) => {
+    await ctx.db.patch(id, { name, note });
+  },
+});
+
 export const seed = mutation({
   args: {
     items: v.array(
