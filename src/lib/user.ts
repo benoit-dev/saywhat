@@ -17,14 +17,14 @@ export function useUser() {
 
 const USER_KEY = "saywhat.user";
 
-export function loadStoredUser(): Person {
+export function loadStoredUser(): Person | null {
   try {
     const v = localStorage.getItem(USER_KEY);
     if (v && (PEOPLE as readonly string[]).includes(v)) return v as Person;
   } catch {
     // ignore
   }
-  return PEOPLE[0];
+  return null;
 }
 
 export function storeUser(u: Person) {
