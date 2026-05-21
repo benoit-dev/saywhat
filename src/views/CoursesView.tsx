@@ -72,6 +72,7 @@ export function CoursesView() {
   const setOverride = useMutation(api.courses.setOverride);
 
   const [collapsed, setCollapsed] = useCatCollapsed();
+  const [addOpen, setAddOpen] = useState(false);
   const [newQty, setNewQty] = useState("");
   const [newName, setNewName] = useState("");
   const [newCat, setNewCat] = useState<string>("Fruits & légumes");
@@ -193,6 +194,7 @@ export function CoursesView() {
     await addManual({ name, cat: newCat, qty: newQty.trim(), addedBy: user });
     setNewName("");
     setNewQty("");
+    setAddOpen(false);
     toast(`${name} ajouté`);
   };
 
@@ -255,33 +257,23 @@ export function CoursesView() {
         </button>
       </div>
 
-      <div className="add-course">
-        <input
-          className="add-input qty-input"
-          placeholder="qté"
-          value={newQty}
-          onChange={(e) => setNewQty(e.target.value)}
+      <button className="add-course-trigger" onClick={() => setAddOpen(true)}>
+        <span className="add-course-trigger-plus">+</span>
+        ajouter un article
+      </button>
+
+      {addOpen && (
+        <AddCourseModal
+          qty={newQty}
+          name={newName}
+          cat={newCat}
+          onQtyChange={setNewQty}
+          onNameChange={setNewName}
+          onCatChange={setNewCat}
+          onSubmit={onAdd}
+          onClose={() => setAddOpen(false)}
         />
-        <input
-          className="add-input"
-          placeholder="+ ajouter un article"
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && onAdd()}
-        />
-        <select
-          className="add-input cat-input"
-          value={newCat}
-          onChange={(e) => setNewCat(e.target.value)}
-        >
-          {CAT_ORDER.map((c) => (
-            <option key={c}>{c}</option>
-          ))}
-        </select>
-        <button className="add-btn" onClick={onAdd}>
-          Add
-        </button>
-      </div>
+      )}
 
       <div>
         {CAT_ORDER.map((cat) => {
@@ -325,6 +317,92 @@ export function CoursesView() {
         })}
       </div>
     </section>
+  );
+}
+
+function AddCourseModal({
+  qty,
+  name,
+  cat,
+  onQtyChange,
+  onNameChange,
+  onCatChange,
+  onSubmit,
+  onClose,
+}: {
+  qty: string;
+  name: string;
+  cat: string;
+  onQtyChange: (v: string) => void;
+  onNameChange: (v: string) => void;
+  onCatChange: (v: string) => void;
+  onSubmit: () => void;
+  onClose: () => void;
+}) {
+  const nameRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const t = setTimeout(() => nameRef.current?.focus(), 60);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="modal-backdrop"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="modal-card">
+        <div className="modal-title">Ajouter un article</div>
+        <div className="modal-form">
+          <div className="modal-row">
+            <input
+              className="modal-input modal-input-qty"
+              placeholder="qté"
+              value={qty}
+              onChange={(e) => onQtyChange(e.target.value)}
+            />
+            <input
+              ref={nameRef}
+              className="modal-input"
+              placeholder="nom de l'article"
+              value={name}
+              onChange={(e) => onNameChange(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && onSubmit()}
+            />
+          </div>
+          <select
+            className="modal-input modal-input-select"
+            value={cat}
+            onChange={(e) => onCatChange(e.target.value)}
+          >
+            {CAT_ORDER.map((c) => (
+              <option key={c}>{c}</option>
+            ))}
+          </select>
+        </div>
+        <div className="modal-actions">
+          <button className="modal-btn modal-btn-ghost" onClick={onClose}>
+            Annuler
+          </button>
+          <button
+            className="modal-btn modal-btn-primary"
+            onClick={onSubmit}
+            disabled={!name.trim()}
+          >
+            Ajouter
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
