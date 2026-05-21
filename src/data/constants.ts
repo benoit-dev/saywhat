@@ -93,7 +93,7 @@ export const RECIPES: Record<string, Recipe> = {
       { name: "Halloumi (pavé)", qty: 150, per: "vg", unit: "g", cat: "Frais" },
       { name: "Courgettes (brochettes)", qty: 1, per: "vg", unit: "pièce", cat: "Fruits & légumes", round: "ceil" },
       { name: "Poivrons (brochettes VG)", qty: 1, per: "vg", unit: "pièce", cat: "Fruits & légumes", round: "ceil" },
-      { name: "Champignons (brochettes VG)", qty: 100, per: "vg", unit: "g", cat: "Fruits & légumes" },
+      { name: "Champignons", qty: 100, per: "vg", unit: "g", cat: "Fruits & légumes" },
       { name: "Salade verte (sachet)", qty: 0.2, per: "all", unit: "sachet", cat: "Fruits & légumes", round: "ceil" },
       { name: "Tomates cerises", qty: 30, per: "all", unit: "g", cat: "Fruits & légumes" },
       { name: "Pâtes (salade froide)", qty: 70, per: "all", unit: "g", cat: "Épicerie" },
@@ -148,7 +148,7 @@ export const RECIPES: Record<string, Recipe> = {
     vg: true,
     ingredients: [
       { name: "Poulet (escalopes)", qty: 180, per: "omni", unit: "g", cat: "Viandes" },
-      { name: "Champignons (pour VG)", qty: 200, per: "vg", unit: "g", cat: "Fruits & légumes" },
+      { name: "Champignons", qty: 200, per: "vg", unit: "g", cat: "Fruits & légumes" },
       { name: "Tofu ferme (VG)", qty: 100, per: "vg", unit: "g", cat: "Frais" },
       { name: "Tortillas (paquet)", qty: 0.25, per: "all", unit: "paquet", cat: "Épicerie", round: "ceil" },
       { name: "Poivrons rouges/jaunes", qty: 0.4, per: "all", unit: "pièce", cat: "Fruits & légumes", round: "ceil" },
