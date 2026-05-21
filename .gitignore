@@ -13,6 +13,7 @@ dist-ssr
 *.local
 .env
 .env.*.local
+.vite/
 
 # Convex local deployment config (machine-specific)
 .env.local
