@@ -67,19 +67,6 @@ export function InfosView() {
         </div>
       </div>
 
-      <div className="info-card alert full">
-        <div className="info-label" style={{ color: "var(--warn)" }}>
-          ⚠ À noter
-        </div>
-        <div style={{ fontSize: 14, lineHeight: 1.5, marginTop: 6, fontWeight: 500 }}>
-          <strong style={{ fontWeight: 700 }}>2 personnes VG</strong> · poisson OK pour le brunch
-          <br />
-          <span style={{ color: "var(--ink-mute)", fontSize: 12, fontWeight: 400 }}>
-            prévoir options sans viande à chaque repas
-          </span>
-        </div>
-      </div>
-
       <div className="info-card full" style={{ marginTop: 10 }}>
         <div className="info-label">☀ Météo prévue</div>
         <div className="weather-grid">
